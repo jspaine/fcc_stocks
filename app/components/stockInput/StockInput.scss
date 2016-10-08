@@ -1,0 +1,32 @@
+@import "~react-toolbox/lib/colors";
+
+.autocomplete {
+  display: flex;
+  justify-content: center;
+}
+
+.results {
+  position: absolute;
+  top: 60px;
+  width: 250px;
+  max-height: 60%;
+  margin-left: 36px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 299;
+  &.hidden {
+    display: none;
+  }
+  /*&::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }*/
+}
+
+.result {
+  cursor: pointer;
+}
+
+.selected {
+  background-color: $palette-grey-200;
+}
