@@ -145,7 +145,10 @@ const prod = {
     // new webpack.optimize.DedupePlugin,
     // new webpack.optimize.OccurenceOrderPlugin,
     new webpack.DefinePlugin({
-      '__DEVELOPMENT__': false
+      '__DEVELOPMENT__': false,
+      'process.env': {
+        'NODE_ENV': '"production"'
+      }
     }),
     ...common.plugins
   ],

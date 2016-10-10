@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom'
 import {AppContainer} from 'react-hot-loader'
 
 import App from './containers/app/App'
-import {autocomplete} from 'lib/yahooClient'
 
 const root = document.getElementById('app')
 

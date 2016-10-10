@@ -4,8 +4,7 @@ import 'rxjs/add/operator/retry'
 import 'rxjs/add/operator/mergeMap'
 import 'rxjs/add/observable/of'
 
-import {getStocks} from 'lib/yahooClient'
-//import stock from './stock'
+import api from 'lib/apiClient'
 
 const SET_STOCKS = 'stocks/SET_STOCK'
 const LOADED_STOCKS = 'stocks/LOADED_STOCKS'
@@ -29,7 +28,7 @@ export default (state = initialState, action) => {
       ]
     case LOADED_STOCKS:
       return state.map(stock => {
-        const data = action.data.filter(d => d['Symbol'] === stock.symbol)
+        const data = action.data.filter(d => d.symbol === stock.symbol)
 
         if (data.length === 0) return stock
         return {
@@ -63,10 +62,13 @@ export const loadStocksEpic = (action$, store) =>
       const stocks = store.getState().stocks
       const missing = stocks.filter(stock => stock.data.length === 0)
         .map(stock => stock.symbol)
-      return getStocks(missing)
-        .retry(100)
+      return api.get(`api/stocks/${JSON.stringify(missing)}`)
         .map(loadedStocks)
-        .catch(err => Observable.of(errorStocks(err)))
+        .catch(err => {
+          console.log('err', err)
+
+          return Observable.of(errorStocks(err))
+        })
 
     })
 

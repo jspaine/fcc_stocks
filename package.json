@@ -7,7 +7,7 @@
     "node": "^6.7.0"
   },
   "scripts": {
-    "postinstall": "gulp build",
+    "postinstall": "cp ./server/config/index.template.js ./server/config/index.js && gulp build",
     "start": "node server/index.js",
     "dev": "gulp watch",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -47,6 +47,7 @@
     "koa-convert": "^1.2.0",
     "koa-etag": "^3.0.0",
     "koa-proxy": "^0.6.0",
+    "koa-router": "^7.0.1",
     "koa-socket": "^4.4.0",
     "koa-static": "^2.0.0",
     "moment": "^2.15.1",

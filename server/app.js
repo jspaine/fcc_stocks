@@ -7,6 +7,7 @@ import convert from 'koa-convert'
 import IO from 'koa-socket'
 import http from 'http'
 
+import apiRoutes from './api'
 import webpackDevProxy from './lib/webpackDevProxy'
 import webpackConfig from '../webpack.config'
 import config from './config'
@@ -18,6 +19,15 @@ const io = new IO()
 app.use(conditional())
 app.use(etag())
 app.use(compress())
+
+app.use(apiRoutes.routes())
+
+app.use(async (ctx, next) => {
+  if (!ctx.path.match(/\.js(?:on)?$|\.html$|\.(?:s)?css$|\.map$|\.ico$/)) {
+    ctx.path = '/'
+  }
+  await next()
+})
 
 if (env === 'production') {
   app.use(serve('public'))

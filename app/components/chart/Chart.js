@@ -37,10 +37,11 @@ class PollChart extends Component {
     this.handleResize = this.handleResize.bind(this)
   }
   handleResize(e) {
-    const size = Math.min(window.innerWidth - 100, 430)
+    const width = Math.min(window.innerWidth - 100, 960)
+    const height = Math.min(window.innerWidth - 100, 430) / 2
     this.setState({
-      width: size,
-      height: size / 2
+      width,
+      height
     })
   }
   componentDidMount() {
@@ -72,8 +73,8 @@ class PollChart extends Component {
     const formatted = stocks.map(stock => ({
       ...stock,
       data: stock.data.map(d => ({
-        date: new Date(d['Date']),
-        close: +d['Close']
+        date: new Date(d.date),
+        close: d.close
       }))
     }))
 

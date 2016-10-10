@@ -5,7 +5,7 @@ import 'rxjs/add/operator/catch'
 import 'rxjs/add/operator/switchMap'
 import 'rxjs/add/operator/debounceTime'
 
-import {autocomplete} from 'lib/yahooClient'
+import api from 'lib/apiClient'
 
 const UPDATE_SEARCH = 'search/UPDATE_SEARCH'
 const SET_SEARCH = 'search/SET_SEARCH'
@@ -67,7 +67,7 @@ export const searchEpic = action$ =>
     .filter(action => action.shouldSearch)
     .debounceTime(300)
     .switchMap(action =>
-      autocomplete(action.term)
+      api.get(`api/lookup/${action.term}`)
         .map(autocompleteReceive)
         .catch(err => Observable.of(autocompleteFailure))
     )
